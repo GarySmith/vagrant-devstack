@@ -14,9 +14,13 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "yk0/ubuntu-xenial"
 
-  #if Vagrant.has_plugin?("vagrant-cachier")
-    #config.cache.scope = :box
-  #end
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+
+    # Use root/root for files in vagrant cache
+    config.nfs.map_uid = 0
+    config.nfs.map_gid = 0
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -89,6 +93,9 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   config.vm.provision "shell", inline: <<-SHELL
       cat .ssh/my_id_rsa.pub >> .ssh/authorized_keys
+      DEBIAN_FRONTEND=noninteractive apt-get -qqy update
+      sudo -iu vagrant /vagrant/start.sh
   SHELL
+
 
 end
