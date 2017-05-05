@@ -68,6 +68,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "file", source: "~/.gitconfig",      destination: ".gitconfig"
+  config.vm.provision "file", source: "~/.inputrc",      destination: ".inputrc"
   config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: ".ssh/my_id_rsa.pub"
 
   # Enable provisioning with a shell script. Additional provisioners such as
