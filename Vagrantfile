@@ -14,6 +14,10 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "yk0/ubuntu-xenial"
 
+  #if Vagrant.has_plugin?("vagrant-cachier")
+    #config.cache.scope = :box
+  #end
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
