@@ -62,11 +62,6 @@ Vagrant.configure("2") do |config|
   # end
 
   config.vm.provider :libvirt do |libvirt|
-    # libvirt.host = "example.com"
-
-    # Display the VirtualBox GUI when booting the machine
-    # libvirt.gui = true
-  
     libvirt.cpus = "2"
     libvirt.memory = "8192"
     libvirt.nested = true
