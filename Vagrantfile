@@ -65,14 +65,25 @@ Vagrant.configure("2") do |config|
     libvirt.cpus = "2"
     libvirt.memory = "8192"
     libvirt.nested = true
-
   end
+
+  config.vm.provision "file", source: "~/.gitconfig",      destination: ".gitconfig"
+  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: ".ssh/my_id_rsa.pub"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
+#  $script = 
+#     #!/bin/bash
+#     cat .ssh/my_id_rsa.pub >> .ssh/authorized_keys
+#SCRIPT
+#  config.vm.provision "shell", inline: $script
+  # Work around a deficiency in Ubuntu's .profile: https://github.com/mitchellh/vagrant/issues/1673#issuecomment-26650102
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
   #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+      cat .ssh/my_id_rsa.pub >> .ssh/authorized_keys
+  SHELL
+
 end
