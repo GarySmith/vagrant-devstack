@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
   # end
 
   config.vm.provider :libvirt do |libvirt|
-    libvirt.cpus = "2"
+    libvirt.cpus = "4"
     libvirt.memory = "8192"
     libvirt.nested = true
   end
